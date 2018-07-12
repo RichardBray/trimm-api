@@ -1,0 +1,108 @@
+{
+    "swagger": "2.0",
+    "host": "trimm-api.com",
+    "basePath": "/v1",
+    "tags": [
+        {
+            "name": "user",
+            "description": "Actions a user can take"
+        },
+        { "name": "spending", "description": "Spending items" }        
+    ],
+    "info": {
+        "description": "Swagger document for Trimm API",
+        "version": "1.0.0",
+        "title": "Trimm API"
+    },
+    "paths": {
+        "/register": {
+            "post": {
+                "tags": ["user"],
+                "summary": "Checks user register credentials",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User submits information to register",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "user_name": {
+                                    "type": "string"
+                                },
+                                "user_email": {
+                                    "type": "string"
+                                },
+                                "user_password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User successfully regisered"
+                    }
+                }
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Checks user login credentials",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "User submits login information",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "user_email": {
+                                    "type": "string"
+                                },
+                                "user_password": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User successfully regisered"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Kill auth token or something",
+                "responses": {
+                    "200": {
+                        "description": "User successfully logged out"
+                    }
+                }
+            }
+        },
+        "/items": {
+            "get": {
+                "tags": ["spending"],
+                "summary": "Get all spening items",
+                "responses": {
+                    "200": {
+                        "description": "User successfully logged out"
+                    }
+                }
+            }
+        }
+    }
+}
