@@ -37,12 +37,3 @@ def jwtauth(handler_class):
 
         return True
 
-    def _execute(self, transforms, *args, **kwargs):
-        try:
-            require_auth(self, kwargs)
-        except Exception:
-            return False
-
-        return handler_execute(self, transforms, *args, **kwargs)
-
-    return _execute

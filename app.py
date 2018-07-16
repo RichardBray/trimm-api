@@ -1,5 +1,6 @@
 from tornado.web import Application
 from tornado.ioloop import IOLoop
+from resources.user import UserRegister
 import jwt
 
 secret_key = "my_secret_key"
@@ -7,7 +8,7 @@ secret_key = "my_secret_key"
 class InitialiseApp(Application):
     def __init__(self):
         handlers = [
-            (r"/regiser")
+            (r"/register", UserRegister)
         ]
 
         server_settings = {
