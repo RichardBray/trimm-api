@@ -28,11 +28,12 @@ class MySql:
         db.close()
         return data
 
-    # @classmethod
-    # def insert_single(cls, *args):
-    #     query = "INSERT INTO {} ({}) VALUES('{}')".format(
-    #         cls.TABLE, args[0], args[1])
-    #     MySql.simpe_query(query)
+    @classmethod
+    def insert_single(cls, *args):
+        query = "INSERT INTO {} ({}) VALUES('{}')".format(
+            cls.TABLE, args[0], args[1])
+        print(query, 'maggie')
+        MySql.simpe_query(query)
 
     # @classmethod
     # def query_all(cls):
@@ -46,7 +47,8 @@ class MySql:
 
     @classmethod
     def query_single(cls, *args):
-        query = "SELECT * FROM {} WHERE {}={}".format(cls.TABLE, args[0], args[1])
+        query = "SELECT * FROM {} WHERE {}='{}'".format(cls.TABLE, args[0], args[1])
+        print(query, 'bart')
         return MySql.fetchall_query(query)
 
     # @classmethod
@@ -58,4 +60,3 @@ class MySql:
 
 class Users(MySql):
     TABLE = "users"
-

@@ -1,5 +1,6 @@
 
 from passlib.hash import pbkdf2_sha256
+import uuid
 import json
 import jwt
 
@@ -22,12 +23,16 @@ class UserRegister(PageHandler):
             '''
                 TODO figure out uuid for db
             '''
-            email_in_db = Users.query_single('email', data['email'])
-            if email_in_db:
-                hash_password = pbkdf2_sha256.hash(data['password'])
-                user_data = {'email': data['email'], 'password': hash_password}
+            email_in_db = Users.query_single('user_email', data["email"])
+            if not email_in_db:
+                hashed_password = pbkdf2_sha256.hash(data['password'])
+                user_data = {'email': data['email'], 'password': hashed_password}
                 encoded_jwt = jwt.encode(
                     user_data, secret_key, algorithm='HS256').decode('utf-8')
+                user_uuid = str(uuid.uuid4())
+                test = (1, user_uuid, data['username'], data['email'], hashed_password)
+                Users.insert_single(
+                    'user_id, user_uuid, user_name, user_email, user_password', ', '.join(test))
                 self.json_response(json.dumps({'token': encoded_jwt}))
             else:
                 self.json_response({'message': 'this email already exists'})
