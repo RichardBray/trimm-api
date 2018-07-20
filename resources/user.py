@@ -1,5 +1,6 @@
 
 from passlib.hash import pbkdf2_sha256
+from tornado.options import define, options
 import uuid
 import json
 import jwt
@@ -9,7 +10,9 @@ from resources.helpers import PageHandler
 from models.mysql import Users
 
 # TODO Generate better secret key
-secret_key = "secret"
+
+define('secret_key', default='')
+secret_key = options.secret_key
 
 
 class UserRegister(PageHandler):

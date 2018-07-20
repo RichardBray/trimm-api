@@ -8,3 +8,8 @@ Api for Trimm app
 `source venv/bin/activate`
 
 `python app.py`
+
+
+## Misc
+JWT Key genergener
+https://passwordsgenerator.net/

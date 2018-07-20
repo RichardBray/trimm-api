@@ -1,6 +1,7 @@
 from tornado.web import Application
 from tornado.ioloop import IOLoop
 from resources.user import UserRegister
+from tornado.options import define, parse_config_file
 import jwt
 
 secret_key = "my_secret_key"
@@ -27,4 +28,5 @@ def run_server():
 
 if __name__ == '__main__':
     # import and run database
+    parse_config_file("./config/local.conf")
     run_server()
