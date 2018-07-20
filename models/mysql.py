@@ -1,5 +1,6 @@
 import MySQLdb
 import MySQLdb.cursors
+import logging
 
 
 class MySql:
@@ -12,28 +13,29 @@ class MySql:
             cursorclass=MySQLdb.cursors.DictCursor)
 
     @staticmethod
-    def simpe_query(query):
+    def simpe_query(query, params=None):
         db = MySql.connect_to_db()
         cursor = db.cursor()
-        cursor.execute(query)
+        cursor.execute(query, params)
         db.commit()
         db.close()
 
     @staticmethod
-    def fetchall_query(query):
+    def fetchall_query(query, params=None):
         db = MySql.connect_to_db()
         cursor = db.cursor()
-        cursor.execute(query)
+        cursor.execute(query, params)
         data = cursor.fetchall()
         db.close()
         return data
 
     @classmethod
-    def insert_single(cls, *args):
-        query = "INSERT INTO {} ({}) VALUES('{}')".format(
-            cls.TABLE, args[0], args[1])
-        print(query, 'maggie')
-        MySql.simpe_query(query)
+    def insert_single(cls, **kwargs):
+        keys = kwargs.keys()
+        query = "INSERT INTO {} ({}) VALUES({})".format(
+            cls.TABLE, ', '.join(keys), ', '.join(['%s'] * len(keys)))
+        logging.debug("SQL query: %s %s" % (query, kwargs))
+        MySql.simpe_query(query, kwargs.values())
 
     # @classmethod
     # def query_all(cls):
@@ -48,7 +50,6 @@ class MySql:
     @classmethod
     def query_single(cls, *args):
         query = "SELECT * FROM {} WHERE {}='{}'".format(cls.TABLE, args[0], args[1])
-        print(query, 'bart')
         return MySql.fetchall_query(query)
 
     # @classmethod
