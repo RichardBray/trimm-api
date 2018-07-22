@@ -29,6 +29,6 @@ class SpendingItem(PageHandler):
             item_price=data['item_price'],
             create_dttm=data['create_dttm'],
             user_id='user_info[user_id]',
-            cat_name='cat_name')
+            cai_id='cat_name')
 
         self.json_response({'message': 'spending item created'}, 201)
