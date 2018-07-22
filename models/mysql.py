@@ -30,34 +30,33 @@ class MySql:
         return data
 
     @classmethod
-    def insert_single(cls, **kwargs):
+    def insert_into(cls, **kwargs):
         keys = kwargs.keys()
         query = "INSERT INTO {} ({}) VALUES({})".format(
             cls.TABLE, ', '.join(keys), ', '.join(['%s'] * len(keys)))
         logging.debug("SQL query: %s %s" % (query, kwargs))
         MySql.simpe_query(query, kwargs.values())
 
-    # @classmethod
-    # def query_all(cls):
-    #     query = "SELECT * FROM {}".format(cls.TABLE)
-    #     return MySql.fetchall_query(query)
-
-    # @classmethod
-    # def delete_single(cls, id):
-    #     query = "DELETE FROM {} WHERE id={}".format(cls.TABLE, id)
-    #     MySql.simpe_query(query)
-
     @classmethod
-    def query_single(cls, *args):
-        query = "SELECT * FROM {} WHERE {}='{}'".format(cls.TABLE, args[0], args[1])
-        return MySql.fetchall_query(query)
+    def select_where(cls, field, value):
+        query = "SELECT * FROM {} WHERE {}=%s".format(cls.TABLE, field)
+        return MySql.fetchall_query(query, (value, ))
 
     # @classmethod
-    # def update_single(cls, *args):
+    # def update_where(cls, *args):
     #     query = "UPDATE {} SET {} = '{}' WHERE id = {}".format(
     #         cls.TABLE, args[0], args[1], args[2])
+    #     MySql.simpe_query(query)
+
+    # @classmethod
+    # def delete_where(cls, id):
+    #     query = "DELETE FROM {} WHERE id={}".format(cls.TABLE, id)
     #     MySql.simpe_query(query)
 
 
 class Users(MySql):
     TABLE = "users"
+
+
+class Spending(MySql):
+    TABLE = "spending"

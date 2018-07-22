@@ -13,3 +13,9 @@ Api for Trimm app
 ## Misc
 JWT Key genergener
 https://passwordsgenerator.net/
+
+Network codes
+https://www.restapitutorial.com/httpstatuscodes.html
+
+Good explanation of decorators
+https://realpython.com/primer-on-python-decorators/ 

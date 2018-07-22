@@ -13,12 +13,12 @@ create_tables = """
                     item_name   VARCHAR(255) NOT NULL,
                     item_price  FLOAT NOT NULL,
                     create_dttm DATETIME NOT NULL,
-                    cat_id      INT(11) NOT NULL,
+                    cat_name    VARCHAR(255) NOT NULL,*
                     user_id     INT(11) NOT NULL,
 
                     PRIMARY KEY (item_id),
-                    FOREIGN KEY (cat_id)
-                    REFERENCES categories(cat_id),
+                    FOREIGN KEY (cat_name)*
+                    REFERENCES categories(cat_name),*
                     FOREIGN KEY (user_id)
                     REFERENCES users(user_id)
                 );
@@ -31,7 +31,7 @@ create_tables = """
                     cat_budget VARCHAR(255) NULL,
                     user_id    INT(11) NOT NULL,
 
-                    PRIMARY KEY (cat_id),
+                    PRIMARY KEY (cat_name),*
                     FOREIGN KEY (user_id)
                     REFERENCES users(user_id)
                 );                
@@ -44,6 +44,7 @@ create_tables = """
                     user_name     VARCHAR(255) NOT NULL,
                     user_email    VARCHAR(255) NOT NULL,
                     user_password VARCHAR(255) NOT NULL,
+                    user_currency VARCHAR(36)  NOT NULL*
                     PRIMARY KEY (user_id)
                 );"""
 
