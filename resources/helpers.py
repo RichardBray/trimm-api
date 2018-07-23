@@ -22,7 +22,7 @@ def authorised_user(func):
         cookie_val = self.get_cookie('auth')
         user_info = Users.select_where('user_uuid', cookie_val)
         if user_info:
-            func(self, user_info)
+            func(self, user_info[0])
         else:
             self.json_response({'message': 'not authorised'}, 401)
 

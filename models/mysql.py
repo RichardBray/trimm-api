@@ -60,3 +60,8 @@ class Users(MySql):
 
 class Spending(MySql):
     TABLE = "spending"
+
+
+class Categories(MySql):
+    TABLE = "categories"
+

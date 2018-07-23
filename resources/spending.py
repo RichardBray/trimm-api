@@ -1,7 +1,7 @@
 import json
 from resources.helpers import PageHandler, authorised_user
-from models.mysql import Spending, Users
-
+from models.mysql import Spending, Categories
+from datetime import datetime
 
 class SpendingItems(PageHandler):
     '''
@@ -10,10 +10,13 @@ class SpendingItems(PageHandler):
     '''
     @authorised_user
     def get(self, user_info=None):
-        data = Spending.select_where('user_id', user_info[0]['user_id'])
+        data = Spending.select_where('user_id', user_info['user_id'])
         if not data:
             self.json_response({'message': 'no data'}, 404)
         else:
+            cat_data = Categories.select_where('cat_id', data[0]['cat_id'])
+            data[0]['create_dttm'] = str(data[0]['create_dttm'])
+            data[0]['cat_name'] = str(cat_data[0]['cat_name'])
             self.json_response(json.dumps(data))
 
 
@@ -22,13 +25,13 @@ class SpendingItem(PageHandler):
         Add a new spending item to the database
     '''
     @authorised_user
-    def post(self):
+    def post(self, user_info=None):
         data = json.loads(self.request.body)
         Spending.insert_into(
             item_name=data['item_name'],
             item_price=data['item_price'],
-            create_dttm=data['create_dttm'],
-            user_id='user_info[user_id]',
-            cai_id='cat_name')
+            create_dttm=datetime.utcnow(),
+            user_id=user_info['user_id'],
+            cat_id=data['cat_id'])
 
         self.json_response({'message': 'spending item created'}, 201)

@@ -7,10 +7,19 @@ Api for Trimm app
 ## Run
 `source venv/bin/activate`
 
-`python app.py`
+`python main.py`
+
 
 
 ## Misc
+
+### Useful mysql commands
+
+```sql
+SHOW ENGINE INNODB STATUS\G
+```
+
+### Useful links
 JWT Key genergener
 https://passwordsgenerator.net/
 
