@@ -1,3 +1,5 @@
+import json
+
 # Project Imports
 from resources.helpers import PageHandler, authorised_user
 from models.mysql import Categories, Users
@@ -33,10 +35,20 @@ def default_categories(user_uuid):
             user_id=user_info[0]['user_id']
         )
 
-class UserCategories(PageHandler):
-
-    def get(self):
+class AllCategories(PageHandler):
+    @authorised_user
+    def get(self, user_info=None):
         '''
-            Get all categories that belong to a user
+            Get all categories that belong to a user.
+            If there is data, remove the `user_id` if each 
+            entry and send response.
+            If no data return an error message
         '''
-        pass
+        data = Categories.select_where('user_id', user_info['user_id'])
+        if not data:
+           self.json_response({'message': 'you have no categories'}, 404)
+        else:
+            for d in data:
+                del d['user_id']
+            
+            self.json_response(json.dumps(data))

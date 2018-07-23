@@ -1,15 +1,19 @@
 import json
+
+# Project Imports
 from resources.helpers import PageHandler, authorised_user
 from models.mysql import Spending, Categories
 from datetime import datetime
 
 class SpendingItems(PageHandler):
-    '''
-        Gat all spending items that belong to the 
-        logged in user.
-    '''
     @authorised_user
     def get(self, user_info=None):
+        '''
+            Gat all spending items that belong to the 
+            logged in user. If data is retrieved from the database
+            also get the category name based on the id and 
+            return it.
+        '''
         data = Spending.select_where('user_id', user_info['user_id'])
         if not data:
             self.json_response({'message': 'no data'}, 404)
@@ -21,11 +25,11 @@ class SpendingItems(PageHandler):
 
 
 class SpendingItem(PageHandler):
-    '''
-        Add a new spending item to the database
-    '''
     @authorised_user
     def post(self, user_info=None):
+        '''
+            Add a new spending item to the database
+        '''
         data = json.loads(self.request.body)
         Spending.insert_into(
             item_name=data['item_name'],

@@ -64,4 +64,3 @@ class Spending(MySql):
 
 class Categories(MySql):
     TABLE = "categories"
-
