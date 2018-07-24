@@ -1,4 +1,5 @@
 import json
+import uuid
 
 # Project Imports
 from resources.helpers import PageHandler, authorised_user
@@ -31,6 +32,7 @@ def default_categories(user_uuid):
     for name in default_names:
         Categories.insert_into(
             cat_name=name,
+            cat_uuid=str(uuid.uuid4()),
             cat_budget=0,
             user_id=user_info[0]['user_id']
         )

@@ -26,5 +26,10 @@ https://passwordsgenerator.net/
 Network codes
 https://www.restapitutorial.com/httpstatuscodes.html
 
+200
+201
+400
+404
+
 Good explanation of decorators
 https://realpython.com/primer-on-python-decorators/ 

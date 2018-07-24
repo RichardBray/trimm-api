@@ -22,8 +22,9 @@ create_tables = """
                 
                 CREATE TABLE categories (
                     cat_id     INT AUTO_INCREMENT,
+                    cat_uuid   VARCHAR(36) NOT NULL,
                     cat_name   VARCHAR(255) NOT NULL,
-                    cat_budget VARCHAR(255) NULL,
+                    cat_budget INT NULL,
                     user_id    INT NOT NULL,
 
                     PRIMARY KEY (cat_id),
@@ -34,6 +35,7 @@ create_tables = """
 
                 CREATE TABLE spending (
                     item_id     INT AUTO_INCREMENT,
+                    item_uuid   VARCHAR(36) NOT NULL,
                     item_name   VARCHAR(255) NOT NULL,
                     item_price  FLOAT NOT NULL,
                     create_dttm DATETIME NOT NULL,
