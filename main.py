@@ -1,6 +1,6 @@
 from tornado.web import Application
 from tornado.ioloop import IOLoop
-from resources.user import UserRegister
+from resources.user import UserRegister, UserLogin
 from resources.categories import AllCategories
 from resources.spending import SpendingItems, SpendingItem
 from tornado.options import define, parse_config_file
@@ -12,6 +12,7 @@ class InitialiseApp(Application):
     def __init__(self):
         handlers = [
             (r"/register", UserRegister),
+            (r"/login", UserLogin),
             (r"/items", SpendingItems),
             (r"/item", SpendingItem),
             (r"/categories", AllCategories)

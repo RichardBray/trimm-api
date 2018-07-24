@@ -34,13 +34,17 @@ class MySql:
         keys = kwargs.keys()
         query = "INSERT INTO {} ({}) VALUES({})".format(
             cls.TABLE, ', '.join(keys), ', '.join(['%s'] * len(keys)))
-        logging.debug("SQL query: %s %s" % (query, kwargs))
         MySql.simpe_query(query, kwargs.values())
 
     @classmethod
     def select_where(cls, field, value):
         query = "SELECT * FROM {} WHERE {}=%s".format(cls.TABLE, field)
         return MySql.fetchall_query(query, (value, ))
+
+    # @classmethod
+    # def select_where_and(cls, field1, field2, value1, value2):
+    #     query = "SELECT * FROM {} WHERE {}=%s AND {}=%s".format(cls.TABLE, field1, field2)
+    #     return MySql.fetchall_query(query, (value1, value2))
 
     # @classmethod
     # def update_where(cls, *args):

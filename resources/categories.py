@@ -52,3 +52,11 @@ class AllCategories(PageHandler):
                 del d['user_id']
             
             self.json_response(json.dumps(data))
+
+
+class Category(PageHandler):
+    pass
+
+
+class BudgetCategory(PageHandler):
+    pass
