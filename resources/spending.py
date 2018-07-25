@@ -8,28 +8,45 @@ from datetime import datetime
 
 class SpendingItems(PageHandler):
     @authorised_user
-    def get(self, user_info=None):
+    def post(self, user_info=None):
         '''
             Gat all spending items that belong to the 
             logged in user. If data is retrieved from the database
             also get the category name based on the id and 
             return it.
         '''
-        data = Spending.select_where('user_id', user_info['user_id'])
-        if not data:
+        data = json.loads(self.request.body)
+        db_data = Spending.select_between_dates(
+                date_field='create_dttm',
+                field='user_id',
+                start_date=data['start_date'],
+                end_date=data['end_date'],
+                field_val=user_info['user_id'])
+        if not db_data:
             self.json_response({'message': 'no data'}, 404)
         else:
-            for d in data:
+            for d in db_data:
                 cat_data = Categories.select_where('cat_id', d['cat_id'])
                 del d['user_id']
                 del d['item_id']
                 d['create_dttm'] = str(d['create_dttm'])
                 d['cat_name'] = str(cat_data[0]['cat_name'])
 
-            self.json_response(json.dumps(data))
+            self.json_response(json.dumps(db_data))
 
 
 class SpendingItem(PageHandler):
+
+    # def update_cat_total(self, cat_id):
+    #     cat_total = 0
+    #     items_with_cat = Spending.select_where('cat_id', cat_id) # TODO and user id 
+
+    #     for item in items_with_cat:
+    #         cat_total += item['item_price']
+
+    #     cat_data = Categories.update_where(
+    #         'cat_id', cat_id)  # TODO update into where
+
     @authorised_user
     def post(self, user_info=None):
         """

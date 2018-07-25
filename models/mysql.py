@@ -17,6 +17,8 @@ class MySql:
         db = MySql.connect_to_db()
         cursor = db.cursor()
         cursor.execute(query, params)
+        logging.info(query)
+        logging.info(params)
         db.commit()
         db.close()
 
@@ -25,6 +27,8 @@ class MySql:
         db = MySql.connect_to_db()
         cursor = db.cursor()
         cursor.execute(query, params)
+        logging.info(query)
+        logging.info(params)
         data = cursor.fetchall()
         db.close()
         return data
@@ -40,6 +44,11 @@ class MySql:
     def select_where(cls, field, value):
         query = "SELECT * FROM {} WHERE {}=%s".format(cls.TABLE, field)
         return MySql.fetchall_query(query, (value, ))
+
+    @classmethod
+    def select_between_dates(cls, **kwargs):
+        query = "SELECT * FROM {} WHERE({} BETWEEN %s AND %s) AND {}=%s".format(cls.TABLE, kwargs['date_field'], kwargs['field'])
+        return MySql.fetchall_query(query, (kwargs['start_date'], kwargs['end_date'], kwargs['field_val']))
 
     @classmethod
     def delete_where(cls, field, value):

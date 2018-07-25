@@ -24,6 +24,7 @@ create_tables = """
                     cat_id     INT AUTO_INCREMENT,
                     cat_uuid   VARCHAR(36) NOT NULL,
                     cat_name   VARCHAR(255) NOT NULL,
+                    cat_total  INT NULL,
                     cat_budget INT NULL,
                     user_id    INT NOT NULL,
 

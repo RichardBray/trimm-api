@@ -57,8 +57,11 @@ class AllCategories(PageHandler):
 
 
 class Category(PageHandler):
-    pass
-
-
-class BudgetCategory(PageHandler):
-    pass
+    def post(self):
+        pass
+    
+    def put(self):
+        pass
+    
+    def delete(self):
+        pass
