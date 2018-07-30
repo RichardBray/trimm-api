@@ -9,12 +9,12 @@ from datetime import datetime
 class SpendingItems(PageHandler):
     @authorised_user
     def post(self, user_info=None):
-        '''
-            Gat all spending items that belong to the 
-            logged in user. If data is retrieved from the database
-            also get the category name based on the id and 
-            return it.
-        '''
+        """
+        Gat all spending items that belong to the 
+        logged in user. If data is retrieved from the database
+        also get the category name based on the id and 
+        return it.
+        """
         data = json.loads(self.request.body)
         db_data = Spending.select_between_dates(
                 date_field='create_dttm',
@@ -37,20 +37,12 @@ class SpendingItems(PageHandler):
 
 class SpendingItem(PageHandler):
 
-    # def update_cat_total(self, cat_id):
-    #     cat_total = 0
-    #     items_with_cat = Spending.select_where('cat_id', cat_id) # TODO and user id 
-
-    #     for item in items_with_cat:
-    #         cat_total += item['item_price']
-
-    #     cat_data = Categories.update_where(
-    #         'cat_id', cat_id)  # TODO update into where
-
     @authorised_user
     def post(self, user_info=None):
         """
-            Add a new spending item to the database
+        Add a new spending item to the database
+            :param user_info: dict user information
+            :return: void
         """
         data = json.loads(self.request.body)
         Spending.insert_into(
@@ -78,4 +70,4 @@ class SpendingItem(PageHandler):
     def delete(self):
         data = json.loads(self.request.body)
         Spending.delete_where('item_uuid', data['item_uuid'])
-        self.json_response({'message': 'Item was deleted'})
+        self.json_response({'message': 'Item deleted'})

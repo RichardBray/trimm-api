@@ -59,7 +59,7 @@ class MySql:
     def update_where(cls, field, value, **kwargs):
         """
         Updates stuff in the database.
-            :param field: field where update is mage
+            :param field: field where update is made
             :param value: value to compare it against
             :param kwargs: the fields and their values that
             need updating

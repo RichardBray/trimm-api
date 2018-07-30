@@ -65,7 +65,14 @@ class UserLogin(PageHandler):
 
 class UserCurrency(PageHandler):
     """
-    Allows user to change currency
+    TODO Allows user to change currency
+    """
+    pass
+
+
+class UserLogout(PageHandler):
+    """
+    TODO Logs out user by remoginv `auth` cookie
     """
     pass
 

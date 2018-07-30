@@ -14,6 +14,18 @@ class PageHandler(RequestHandler):
 
     def json_error(self): 
         self.json_response({'message': 'request body is empty'}, 404)        
+    
+    def set_default_headers(self):
+        """
+        http://www.tornadoweb.org/en/stable/web.html#tornado.web.RequestHandler.set_default_headers
+        """
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+
+    def options(self):
+        self.set_status(204)
+        self.finish()
 
 
 def authorised_user(func):
