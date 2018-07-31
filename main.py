@@ -1,7 +1,7 @@
 from tornado.web import Application
 from tornado.ioloop import IOLoop
-from resources.user import UserRegister, UserLogin
-from resources.categories import AllCategories
+from resources.user import UserRegister, UserLogin, UserEdit, UserLogout
+from resources.categories import AllCategories, Category
 from resources.spending import SpendingItems, SpendingItem
 from tornado.options import define, parse_config_file
 import jwt
@@ -13,9 +13,12 @@ class InitialiseApp(Application):
         handlers = [
             (r"/register", UserRegister),
             (r"/login", UserLogin),
+            (r"/logout", UserLogout),
+            (r"/user-edit", UserEdit),
             (r"/items", SpendingItems),
             (r"/item", SpendingItem),
-            (r"/categories", AllCategories)
+            (r"/categories", AllCategories),
+            (r"/category", Category)
         ]
 
         server_settings = {

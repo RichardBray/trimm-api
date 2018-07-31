@@ -84,7 +84,16 @@ class Category(PageHandler):
             self.json_response({'message': 'category already exists'}, 400)
     
     def put(self):
-        pass
+        """
+        User can edit a category     
+        """
+        data = json.loads(self.request.body)
+        Users.update_where(
+            'cat_uuid', data['cat_uuid'],
+            cat_name=data['cat_name'],
+            cat_budget=data['cat_budget'])
+        self.json_response(
+            {'message': 'category updated'})
     
     def delete(self):
         """
@@ -95,5 +104,3 @@ class Category(PageHandler):
         self.json_response({'message': 'Category deleted'})
 
 
-class CategoryBudget(PageHandler):
-    pass

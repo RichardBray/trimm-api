@@ -63,6 +63,9 @@ class MySql:
             :param value: value to compare it against
             :param kwargs: the fields and their values that
             need updating
+        Example:
+        >>> Users.update_where(user_uuid, data['user_uuid'], user_currency='dollars')
+        >>> UPDATE Users SET user_currency WHERE user_uuid='98adfu8u...'
         """
         fields = []
 

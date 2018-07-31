@@ -1,12 +1,12 @@
 
 from passlib.hash import pbkdf2_sha256
 from tornado.options import define, options
-from datetime import datetime, timedelta # TODO research timedelta
+from datetime import datetime, timedelta
 import uuid
 import json
 
 # Project Imports
-from resources.helpers import PageHandler
+from resources.helpers import PageHandler, authorised_user
 from resources.categories import default_categories
 from models.mysql import Users
 
@@ -63,18 +63,29 @@ class UserLogin(PageHandler):
              _incorrect_credentials(self)
 
 
-class UserCurrency(PageHandler):
+class UserEdit(PageHandler):
     """
-    TODO Allows user to change currency
+    Edit user details
+        :param user_info: dict
+        :return: void
     """
-    pass
+    @authorised_user
+    def put(self, user_info=None):
+        data = json.loads(self.request.body)
+        Users.update_where(
+            'user_uuid', user_info['user_uuid'], user_currency=data['user_currency'])
+        self.json_response(
+            {'message': 'currency updated'})
 
 
 class UserLogout(PageHandler):
     """
-    TODO Logs out user by remoginv `auth` cookie
+    Logs out user by removing `auth` cookie
     """
-    pass
+    def get(self):
+        self.clear_cookie('auth')
+        self.json_response(
+            {'message': 'user has logged out'})
 
 
 def _set_user_cookie(self, user_uuid):
