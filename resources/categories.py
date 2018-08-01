@@ -77,7 +77,7 @@ class Category(PageHandler):
                 cat_uuid=str(uuid.uuid4()),
                 cat_total=0,
                 cat_budget=data['cat_budget'],
-                user_id=user_info[0]['user_id']
+                user_id=user_info['user_id']
             )
             self.json_response({'message': 'category added'}, 201)
         else:
@@ -88,7 +88,7 @@ class Category(PageHandler):
         User can edit a category     
         """
         data = json.loads(self.request.body)
-        Users.update_where(
+        Categories.update_where(
             'cat_uuid', data['cat_uuid'],
             cat_name=data['cat_name'],
             cat_budget=data['cat_budget'])

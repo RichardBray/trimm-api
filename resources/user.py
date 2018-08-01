@@ -44,24 +44,33 @@ class UserLogin(PageHandler):
     """
     Allows user to login
     """
+
     def post(self):
+        user_info = self._get_user_by_credentials()
+        if user_info:
+            _set_user_cookie(self, user_info['user_uuid'])
+            updated_user_info = self._remove_sensitive_info(user_info)
+            self.json_response(json.dumps(updated_user_info))   
+        else:
+             _incorrect_credentials(self)
+
+    def _get_user_by_credentials(self):
+        """
+        Checks if user email and password is correct
+            :return: dict with user data from db
+        """
         data = json.loads(self.request.body)
         user_info = Users.select_where('user_email', data["email"])
+        result = None
         if user_info:
             password_correct = pbkdf2_sha256.verify(
                 data['password'], user_info[0]['user_password'])
             if password_correct:
-                _set_user_cookie(self, user_info[0]['user_uuid'])
+              result = user_info[0]
+        return result
 
-                for field in ['user_password', 'user_id', 'user_uuid']:
-                    del user_info[0][field]
-
-                self.json_response(json.dumps(user_info[0]))
-            else:
-               _incorrect_credentials(self)
-        else:
-             _incorrect_credentials(self)
-
+    def _remove_sensitive_info(self, user_info):
+        return [f for f in user_info[0] if f not in ('user_password', 'user_id', 'user_uuid')]
 
 class UserEdit(PageHandler):
     """
