@@ -21,16 +21,20 @@ SHOW ENGINE INNODB STATUS\G
 
 ### Useful links
 
-JWT Key genergener
+JWT Key generator
 https://passwordsgenerator.net/
 
 Network codes
 https://www.restapitutorial.com/httpstatuscodes.html
 
 200 - Everything is OK
+
 201 - Something new created
+
 400 - Bad request
+
 404 - This page doesn't exist
+
 500 - Server Error
 
 Good explanation of decorators
