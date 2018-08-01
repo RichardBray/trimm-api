@@ -1,2 +1,2 @@
-# Empty because folder needs to be treaded as
+# Empty because folder needs to be treated as
 # a module by Python.
