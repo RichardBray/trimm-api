@@ -45,7 +45,8 @@ class UserLogin(PageHandler):
     """
 
     def post(self):
-        user_info = self._get_user_by_credentials()
+        data = json.loads(self.request.body)
+        user_info = self._get_user_by_credentials(data)
         if user_info:
             _set_user_cookie(self, user_info['user_uuid'])
             updated_user_info = self._remove_sensitive_info(user_info)
@@ -53,12 +54,11 @@ class UserLogin(PageHandler):
         else:
              _incorrect_credentials(self)
 
-    def _get_user_by_credentials(self):
+    def _get_user_by_credentials(self, data):
         """
         Checks if user email and password is correct
             :return: dict with user data from db
         """
-        data = json.loads(self.request.body)
         user_info = Users.select_where('user_email', data["email"])
         result = None
         if user_info:
@@ -69,7 +69,9 @@ class UserLogin(PageHandler):
         return result
 
     def _remove_sensitive_info(self, user_info):
-        return [f for f in user_info[0] if f not in ('user_password', 'user_id', 'user_uuid')]
+        for field in ['user_password', 'user_id', 'user_uuid']:
+            del user_info[field]
+        return user_info
 
 class UserEdit(PageHandler):
     """

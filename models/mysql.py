@@ -1,7 +1,12 @@
 import MySQLdb
 import MySQLdb.cursors
 import logging
-from tornado.options import options
+from tornado.options import define, options
+
+define("db_user", default="root")
+define("db_host", default="localhost")
+define("db_password", default="localhost")
+define("db_name", default="trimm-api")
 
 class MySql:
     TABLE = ""

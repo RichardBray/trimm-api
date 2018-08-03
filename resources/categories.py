@@ -5,20 +5,6 @@ import uuid
 from resources.helpers import PageHandler, authorised_user
 from models.mysql import Categories, Users
 
-'''
-Transport
-Eating Out
-_Finances
-Bills
-Entertainment
-Shopping
-Holidays
-_Family
-Personal care
-General
-_Expenses
-'''
-
 
 def default_categories(user_uuid):
     """

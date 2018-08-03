@@ -3,10 +3,8 @@ from tornado.ioloop import IOLoop
 from resources.user import UserRegister, UserLogin, UserEdit, UserLogout
 from resources.categories import AllCategories, Category
 from resources.spending import SpendingItems, SpendingItem
-from tornado.options import define, parse_config_file
-import jwt
+from tornado.options import parse_config_file
 
-secret_key = "my_secret_key"
 
 class InitialiseApp(Application):
     def __init__(self):
@@ -36,6 +34,5 @@ def run_server():
 
 
 if __name__ == '__main__':
-    # import and run database
     parse_config_file("./config/local.conf")
     run_server()
