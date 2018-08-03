@@ -59,4 +59,3 @@ create_tables = """
 cursor.execute(create_tables)
 
 db.close()
-    
