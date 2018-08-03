@@ -1,7 +1,15 @@
 import MySQLdb
+from tornado.options import define, options
 
 
-db = MySQLdb.connect("localhost", "root", "", "trimm-api")
+define("db_user", default="root")
+define("db_host", default="localhost")
+define("db_password", default="localhost")
+define("db_name", default="trimm-api")
+
+
+db = MySQLdb.connect(options.db_host, options.db_user,
+                     options.db_password, options.db_name)
 
 cursor = db.cursor()
 

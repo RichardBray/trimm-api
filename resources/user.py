@@ -1,6 +1,5 @@
 
 from passlib.hash import pbkdf2_sha256
-from tornado.options import define, options
 from datetime import datetime, timedelta
 import uuid
 import json

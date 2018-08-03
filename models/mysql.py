@@ -1,7 +1,7 @@
 import MySQLdb
 import MySQLdb.cursors
 import logging
-
+from tornado.options import options
 
 class MySql:
     TABLE = ""
@@ -9,7 +9,7 @@ class MySql:
     @staticmethod
     def connect_to_db():
         return MySQLdb.connect(
-            "localhost", "root", "", "trimm-api",
+            options.db_host, options.db_user, options.db_password, options.db_name,
             cursorclass=MySQLdb.cursors.DictCursor)
 
     @staticmethod
