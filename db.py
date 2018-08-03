@@ -1,11 +1,12 @@
 import MySQLdb
-from tornado.options import define, options
+from tornado.options import define, options, parse_config_file
 
-define("db_user", default="root")
+define("db_user", default="root2")
 define("db_host", default="localhost")
 define("db_password", default="localhost")
 define("db_name", default="trimm-api")
 
+parse_config_file("./config/local.conf")
 
 db = MySQLdb.connect(options.db_host, options.db_user,
                      options.db_password, options.db_name)
@@ -58,3 +59,4 @@ create_tables = """
 cursor.execute(create_tables)
 
 db.close()
+    
