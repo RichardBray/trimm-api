@@ -1,9 +1,14 @@
-from tornado.web import Application
+from tornado.web import Application, HTTPError, RequestHandler
 from tornado.ioloop import IOLoop
 from resources.user import UserRegister, UserLogin, UserEdit, UserLogout
 from resources.categories import AllCategories, Category
 from resources.spending import SpendingItems, SpendingItem
 from tornado.options import parse_config_file
+
+
+class BadRequestHandler(RequestHandler):
+    def get(self):
+        raise HTTPError(400)
 
 
 class InitialiseApp(Application):
@@ -16,7 +21,8 @@ class InitialiseApp(Application):
             (r"/items", SpendingItems),
             (r"/item", SpendingItem),
             (r"/categories", AllCategories),
-            (r"/category", Category)
+            (r"/category", Category),
+            (r"/.*", BadRequestHandler),
         ]
 
         server_settings = {

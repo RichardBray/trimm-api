@@ -20,9 +20,11 @@ class PageHandler(RequestHandler):
         http://www.tornadoweb.org/en/stable/web.html#tornado.web.RequestHandler.set_default_headers
         """
         self.set_header("Access-Control-Allow-Origin", "*")
-        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
-        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
-
+        self.set_header("Access-Control-Allow-Headers",
+                        "Content-Type, Access-Control-Allow-Headers, Authorization, x-requested-with")
+        self.set_header('Access-Control-Allow-Methods',
+                        "POST, GET, DELETE, OPTIONS")
+        
     def options(self):
         self.set_status(204)
         self.finish()
