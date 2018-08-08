@@ -44,7 +44,8 @@ class AllCategories(PageHandler):
             for d in data:
                 del d['user_id']
             
-            self.json_response(json.dumps(data))
+            response = {'data' : data}
+            self.json_response(json.dumps(response))
 
 
 class Category(PageHandler):

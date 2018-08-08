@@ -32,7 +32,8 @@ class SpendingItems(PageHandler):
                 d['create_dttm'] = str(d['create_dttm'])
                 d['cat_name'] = str(cat_data[0]['cat_name'])
 
-            self.json_response(json.dumps(db_data))
+            response = {'data': db_data}
+            self.json_response(json.dumps(response))
 
 
 class SpendingItem(PageHandler):
