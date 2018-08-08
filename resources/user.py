@@ -104,4 +104,4 @@ def _set_user_cookie(self, user_uuid):
 
 def _incorrect_credentials(self):
     self.json_response(
-        {'message': 'username or password incorrect'}, 400)
+        {'message': 'Oops, looks like your username or password incorrect'}, 400)
