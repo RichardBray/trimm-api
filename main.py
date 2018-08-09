@@ -1,6 +1,6 @@
 from tornado.web import Application, HTTPError, RequestHandler
 from tornado.ioloop import IOLoop
-from resources.user import UserRegister, UserLogin, UserEdit, UserLogout
+from resources.user import UserRegister, UserLogin, UserEdit, UserLogout, AuthenticateUser
 from resources.categories import AllCategories, Category
 from resources.spending import SpendingItems, SpendingItem
 from tornado.options import parse_config_file
@@ -17,6 +17,7 @@ class InitialiseApp(Application):
             (r"/register", UserRegister),
             (r"/login", UserLogin),
             (r"/logout", UserLogout),
+            (r"/auth", AuthenticateUser),
             (r"/user-edit", UserEdit),
             (r"/items", SpendingItems),
             (r"/item", SpendingItem),

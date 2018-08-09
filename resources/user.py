@@ -48,9 +48,8 @@ class UserLogin(PageHandler):
         data = json.loads(self.request.body)
         user_info = self._get_user_by_credentials(data)
         if user_info:
-            _set_user_cookie(self, user_info['user_uuid'])
-            updated_user_info = self._remove_sensitive_info(user_info)
-            self.json_response(json.dumps(updated_user_info))   
+            _set_user_cookie(self, user_info['user_uuid']) 
+            self.json_response({'message': 'user has successfully logged in'})
         else:
              _incorrect_credentials(self)
 
@@ -68,10 +67,6 @@ class UserLogin(PageHandler):
               result = user_info[0]
         return result
 
-    def _remove_sensitive_info(self, user_info):
-        for field in ['user_password', 'user_id', 'user_uuid']:
-            del user_info[field]
-        return user_info
 
 class UserEdit(PageHandler):
     """
@@ -96,6 +91,21 @@ class UserLogout(PageHandler):
         self.clear_cookie('auth')
         self.json_response(
             {'message': 'user has logged out'})
+
+
+class AuthenticateUser(PageHandler):
+    """
+    This method simply gets user data
+    """
+    @authorised_user
+    def get(self, user_info=None):
+        updated_user_info = self._remove_sensitive_info(user_info)
+        self.json_response(json.dumps(updated_user_info))
+
+    def _remove_sensitive_info(self, user_info):
+        for field in ['user_password', 'user_id', 'user_uuid']:
+            del user_info[field]
+        return user_info
 
 
 def _set_user_cookie(self, user_uuid):
