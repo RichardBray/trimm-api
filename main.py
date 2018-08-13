@@ -4,7 +4,10 @@ from resources.user import UserRegister, UserLogin, UserEdit, UserLogout, Authen
 from resources.categories import AllCategories, Category
 from resources.spending import SpendingItems, SpendingItem
 from tornado.options import parse_config_file
+import logging
 
+
+port_number = 3000
 
 class BadRequestHandler(RequestHandler):
     def get(self):
@@ -36,10 +39,13 @@ class InitialiseApp(Application):
 
 def run_server():
     app = InitialiseApp()
-    app.listen(3000)
+    app.listen(port_number)
     IOLoop.instance().start()
+    
 
 
 if __name__ == '__main__':
     parse_config_file("./config/local.conf")
+    start_message = "Server running on port:{}".format(port_number)
+    logging.info(start_message)
     run_server()
