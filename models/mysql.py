@@ -46,6 +46,11 @@ class MySql:
         MySql.simpe_query(query, kwargs.values())
 
     @classmethod
+    def select_where_and(cls, field, value, field2, value2):
+        query = "SELECT * FROM {} WHERE {}=%s AND {}=%s".format(cls.TABLE, field, field2)
+        return MySql.fetchall_query(query, (value, value2))
+
+    @classmethod
     def select_where(cls, field, value):
         query = "SELECT * FROM {} WHERE {}=%s".format(cls.TABLE, field)
         return MySql.fetchall_query(query, (value, ))

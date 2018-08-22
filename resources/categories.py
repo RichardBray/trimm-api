@@ -57,7 +57,8 @@ class Category(PageHandler):
             :return: void
         """
         data = json.loads(self.request.body)
-        cat_exists = Categories.select_where('cat_name', data['cat_name'])
+        cat_exists = Categories.select_where_and(
+            'cat_name', data['cat_name'], 'user_id', user_info['user_id'])
         if not cat_exists:
             Categories.insert_into(
                 cat_name=data['cat_name'],
@@ -68,7 +69,7 @@ class Category(PageHandler):
             )
             self.json_response({'message': 'category added'}, 201)
         else:
-            self.json_response({'message': 'category already exists'}, 400)
+            self.json_response({'message': 'Looks like this category already exists'}, 400)
     
     def put(self):
         """
@@ -89,5 +90,3 @@ class Category(PageHandler):
         data = json.loads(self.request.body)
         Categories.delete_where('cat_uuid', data['cat_uuid'])
         self.json_response({'message': 'Category deleted'})
-
-
