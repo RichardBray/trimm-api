@@ -36,7 +36,7 @@ class UserRegister(PageHandler):
                 {'message': 'new user created and categories', 'currency': default_currency}, 201)
             default_categories(user_uuid)
         else:
-            self.json_response({'message': 'this email already exists'}, 400)
+            self.json_response({'message': 'Looks like this user already exists :('}, 400)
 
 
 class UserLogin(PageHandler):
