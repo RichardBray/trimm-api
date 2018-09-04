@@ -7,7 +7,7 @@ Api for Trimm app
 ## Run
 `source venv/bin/activate`
 
-`python main.py`
+`python main.py ENV=dev`
 
 
 

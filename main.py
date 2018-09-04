@@ -4,8 +4,7 @@ from resources.user import UserRegister, UserLogin, UserEdit, UserLogout, Authen
 from resources.categories import AllCategories, Category
 from resources.spending import SpendingItems, SpendingItem
 from tornado.options import parse_config_file
-import logging
-
+import logging as log
 
 port_number = 3000
 
@@ -47,5 +46,5 @@ def run_server():
 if __name__ == '__main__':
     parse_config_file("./config/local.conf")
     start_message = "Server running on port:{}".format(port_number)
-    logging.info(start_message)
+    log.info(start_message)
     run_server()
