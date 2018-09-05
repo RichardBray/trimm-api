@@ -41,7 +41,6 @@ class PageHandler(RequestHandler):
         """
         http://www.tornadoweb.org/en/stable/web.html#tornado.web.RequestHandler.set_default_headers
         """
-        print(self.api_url)
         self.set_header("Access-Control-Allow-Origin", self.api_url)
         self.set_header("Access-Control-Allow-Credentials",
                          "true")
