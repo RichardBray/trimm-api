@@ -32,7 +32,8 @@ class SpendingItems(PageHandler):
                 d['create_dttm'] = str(d['create_dttm'])
                 d['cat_name'] = str(cat_data[0]['cat_name'])
 
-            response = {'data': db_data}
+            sorted_data = sorted(db_data, key=lambda item:item['create_dttm'], reverse=True)
+            response = {'data': sorted_data}
             self.json_response(json.dumps(response))
 
 
