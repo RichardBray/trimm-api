@@ -47,7 +47,7 @@ class PageHandler(RequestHandler):
         self.set_header("Access-Control-Allow-Headers",
                         "Content-Type, Access-Control-Allow-Headers, Authorization, x-requested-with")
         self.set_header('Access-Control-Allow-Methods',
-                        "POST, GET, DELETE, OPTIONS")
+                        "POST, GET, DELETE, OPTIONS, PUT")
         
     def options(self):
         self.set_status(204)
