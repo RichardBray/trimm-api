@@ -7,7 +7,7 @@ import json
 # Project Imports
 from resources.helpers import PageHandler, authorised_user
 from resources.categories import default_categories
-from models.mysql import Users
+from models.mysql import Users, Test
 
 
 class UserRegister(PageHandler):

@@ -2,11 +2,18 @@ import MySQLdb
 import MySQLdb.cursors
 import logging
 from tornado.options import define, options
+import sqlalchemy as db
+from sqlalchemy.ext.declarative import declarative_base
 
 define("db_user", default="root")
 define("db_host", default="localhost")
 define("db_password", default="localhost")
 define("db_name", default="trimm-api")
+
+database_string = 'mysql://{}:{}@{}/{}'.format(options.db_user,
+                                        options.db_password, options.db_host, options)
+engine = db.create_engine(database_string, echo=True)
+Base = declarative_base()
 
 class MySql:
     TABLE = ""
@@ -15,7 +22,7 @@ class MySql:
     def connect_to_db():
         return MySQLdb.connect(
             options.db_host, options.db_user, options.db_password, options.db_name,
-            cursorclass=MySQLdb.cursors.DictCursor)
+            cursorclass=MySQLdb.cursors.DictCursor, use_unicode=True, charset="utf8")
 
     @staticmethod
     def simpe_query(query, params=None):
@@ -89,6 +96,24 @@ class MySql:
 
 class Users(MySql):
     TABLE = "users"
+
+class Test(Base):
+    __tablename__ = 'users'
+    user_id = db.Column(db.Integer, primary_key=True)
+    user_uuid = db.Column(db.String(36), nullable=False)
+    user_name = db.Column(db.String(255), nullable=False)
+    user_email = db.Column(db.String(255), nullable=False)
+    user_password = db.Column(db.String(255), nullable=False)
+    user_currency = db.Column(db.String(36), nullable=False)
+
+    def __init__(self, user_id, user_uuid, user_name, user_email, user_currency, user_password):
+        self.user_id = user_id
+        self.user_uuid = user_uuid
+
+    @classmethod
+    def test_22(self, user_uuid):
+        s = Test.insert()
+        print(str(s))
 
 
 class Spending(MySql):
