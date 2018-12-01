@@ -15,7 +15,7 @@ class MySql:
     def connect_to_db():
         return MySQLdb.connect(
             options.db_host, options.db_user, options.db_password, options.db_name,
-            cursorclass=MySQLdb.cursors.DictCursor)
+            cursorclass=MySQLdb.cursors.DictCursor, use_unicode=True, charset="utf8")
 
     @staticmethod
     def simpe_query(query, params=None):
