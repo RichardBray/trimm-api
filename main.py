@@ -5,8 +5,10 @@ from resources.categories import AllCategories, Category
 from resources.spending import SpendingItems, SpendingItem
 from tornado.options import parse_config_file
 import logging as log
+import sentry_sdk
 
 port_number = 3000
+sentry_sdk.init("https://c2a0b466d45149b896b8ccb1b64a38ab@sentry.io/1340359")
 
 class BadRequestHandler(RequestHandler):
     def get(self):
